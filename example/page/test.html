@@ -1,0 +1,16 @@
+<div style="background: #84fbf0;" av-style="{minHeight:window.innerHeight+'px'}">
+	<div style="text-align: center;padding-top: 20px;">
+		<a href="#/">{{a}}</a>
+		<br/><br/><br/>
+		<div>{{title}}</div>
+		<div>{{message}}</div>
+		<br/><br/><br/>
+		<div><button type="button" av-event="[click]clickNumber()">增加</button></div>
+		<br/>
+		<div>{{number}}</div>
+		<br/><br/><br/>
+		<input type="text" av-event="[input propertychange change]inputChange(#n)" placeholder="数据绑定的实现" />
+		<br/>
+		<div>{{inputValue}}</div>
+	</div>
+</div>

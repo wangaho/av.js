@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>av.js框架-示例项目</title>
+    <script src="../av.release.js" charset="UTF-8"></script>
+</head>
+
+<body>
+    <view></view>
+    <action></action>
+</body>
+
+</html>
+<script>
+	
+	av.framework({
+		includeQueryTime: true,
+		//绑定页面
+		page: {
+			"" : {
+				file:"page/home.js", 
+				project:"home"
+			},
+			"/" : {
+				file:"page/home.js", 
+				project:"home"
+			},
+			//还可以设置回调函数
+			"/test" : {
+				file:"page/test.js", 
+				project:"test", 
+				callback: function(ele) {
+					//必须要添加，不然不会往下执行
+					ele.append(this.element);
+				}
+			}
+		},
+		
+		onPage: function(e) {
+			console.log('onPage', e);
+			if (typeof e.router.fragmentPathStruct[0] != 'undefined') {
+				e.page({
+					project: e.router.fragmentPathStruct[0],
+					file: 'page/' + e.router.fragmentPathStruct[0] + ".js",
+				});
+			} else {
+				e.page();
+			}
+		},
+		
+		onPageChange: function(e) {
+			console.log('onPageChange',e);
+			if (confirm("这是框架提醒，你确定要跳转页面么?")) {
+				e.accept();
+			} else {
+				e.ignore();
+			}
+		},
+		
+		onProgress: function(e) {
+			var percent = Math.floor(100 * e.loaded / e.total);//已经上传的百分比  
+			console.log('onProgress', e, "已经加载了："+percent+"%");
+		},
+		
+		
+		onError: function(e) {
+			console.log('onError', e);
+		},
+		onWindowScroll: function(e) {
+			console.log('onWindowScroll', e, e.target);
+		},	
+		onWindowHide: function(e) {
+			console.log('窗口隐藏了', e);
+		},
+		onWindowShow: function(e) {
+			console.log('窗口显示了', e);
+		},
+		onWindowResize: function(e) {
+			console.log('窗口调整了大小', e);
+		},
+		onRouterChange: function(e) {
+			console.log('onRouterChange', e);
+		},
+		
+		
+	}).exec();
+	
+</script>
